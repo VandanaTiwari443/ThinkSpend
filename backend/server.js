@@ -3,18 +3,19 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRoutes = require("./routes/authRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
+const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-// ✅ MUST BE TOP
+/* ✅ CORS FIX (IMPORTANT FOR VERCEL + RENDER) */
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://thinkspend-frontend.vercel.app"
+      "http://localhost:3000",
+      "https://think-spend-git-main-vandanatiwarin-5159s-projects.vercel.app/"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -22,27 +23,27 @@ app.use(
   })
 );
 
-// IMPORTANT
+app.use(cors());
+
 app.use(express.json());
 
-// routes
+app.get("/", (req, res) => {
+  res.send("ThinkSpend API is running 🚀");
+});
+
+/* routes */
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/users", userRoutes);
 
-// test route
-app.get("/", (req, res) => {
-  res.send("API running 🚀");
-});
-
-// DB
+/* MongoDB */
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected ✅"))
   .catch((err) => console.log(err));
 
-// server
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
