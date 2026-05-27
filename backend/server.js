@@ -9,17 +9,28 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-/* ✅ CORS FIX */
+/* ✅ CORS */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://think-spend-git-main-vandanatiwarin-5159s-projects.vercel.app",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://think-spend-git-main-vandanatiwarin-5159s-projects.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      // allow requests with no origin
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+    credentials: true,
+  })
 );
 
 app.use(express.json());
@@ -34,7 +45,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/users", userRoutes);
 
-/* MongoDB Connect */
+/* MongoDB */
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected ✅"))
