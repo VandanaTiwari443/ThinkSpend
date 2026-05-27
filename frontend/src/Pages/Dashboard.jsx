@@ -33,7 +33,7 @@ function Dashboard() {
         return;
       }
 
-      const res = await axios.get("http://localhost:5000/api/expenses", {
+      const res = await axios.get("https://thinkspend-backend.onrender.com/api/expenses", {
         headers: {
           Authorization: token,
         },
@@ -67,7 +67,7 @@ function Dashboard() {
         setUser(JSON.parse(savedUser));
       }
 
-      const res = await axios.get("http://localhost:5000/api/users/profile", {
+      const res = await axios.get("https://thinkspend-backend.onrender.com/api/users/profile", {
         headers: {
           Authorization: token,
         },
@@ -108,7 +108,7 @@ function Dashboard() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+      await axios.delete(`https://thinkspend-backend.onrender.com/api/expenses/${id}`, {
         headers: {
           Authorization: token,
         },
@@ -149,7 +149,7 @@ function Dashboard() {
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        "http://localhost:5000/api/users/budget",
+        "https://thinkspend-backend.onrender.com/api/users/budget",
         { budget: budgetValue },
         {
           headers: { Authorization: token },

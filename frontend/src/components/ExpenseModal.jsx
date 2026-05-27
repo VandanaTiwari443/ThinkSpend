@@ -43,14 +43,14 @@ function ExpenseModal({ isOpen, onClose, refresh, editData, total, budget }) {
 
       if (editData) {
         await axios.put(
-          `http://localhost:5000/api/expenses/${editData._id}`,
+          `https://thinkspend-backend.onrender.com/api/expenses/${editData._id}`,
           data,
           {
             headers: { Authorization: token },
           },
         );
       } else {
-        await axios.post("http://localhost:5000/api/expenses", data, {
+        await axios.post("https://thinkspend-backend.onrender.com/api/expenses", data, {
           headers: { Authorization: token },
         });
       }
