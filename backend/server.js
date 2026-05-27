@@ -9,7 +9,7 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-/* ✅ CORS */
+/* ✅ CORS FIX */
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
@@ -18,29 +18,18 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: allowedOrigins,
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
 
-/* Home Route */
+/* Routes */
 app.get("/", (req, res) => {
   res.send("ThinkSpend API running 🚀");
 });
 
-/* Routes */
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/users", userRoutes);
