@@ -16,7 +16,7 @@ function Auth() {
       if (isLogin) {
         // 🔹 LOGIN
         const res = await axios.post(
-          "https://thinkspend-backend.onrender.com/api/auth/login",
+          "https://thinkspend.onrender.com/api/auth/login",
           { email, password }
         );
 
@@ -28,7 +28,7 @@ function Auth() {
       } else {
         // 🔹 SIGNUP
         const res = await axios.post(
-          "https://thinkspend-backend.onrender.com/api/auth/signup",
+          "https://thinkspend.onrender.com/api/auth/signup",
           { name, email, password }
         );
 

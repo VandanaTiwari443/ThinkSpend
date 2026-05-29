@@ -11,7 +11,7 @@ function Login() {
       const data = { email, password };
 
       const res = await axios.post(
-        "https://thinkspend-backend.onrender.com/api/auth/login",
+        "https://thinkspend.onrender.com/api/auth/login",
         data
       );
 
