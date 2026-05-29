@@ -33,11 +33,14 @@ function Dashboard() {
         return;
       }
 
-      const res = await axios.get("hhttps://thinkspend.onrender.com/api/expenses", {
-        headers: {
-          Authorization: token,
+      const res = await axios.get(
+        "https://thinkspend.onrender.com/api/expenses",
+        {
+          headers: {
+            Authorization: token,
+          },
         },
-      });
+      );
 
       setExpenses(res.data);
     } catch (error) {
@@ -67,11 +70,14 @@ function Dashboard() {
         setUser(JSON.parse(savedUser));
       }
 
-      const res = await axios.get("https://thinkspend.onrender.com/api/users/profile", {
-        headers: {
-          Authorization: token,
+      const res = await axios.get(
+        "https://thinkspend.onrender.com/api/users/profile",
+        {
+          headers: {
+            Authorization: token,
+          },
         },
-      });
+      );
 
       setUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
