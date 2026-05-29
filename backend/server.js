@@ -9,32 +9,26 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-/* ✅ CORS FIX */
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:3000",
-  "https://think-spend-git-main-vandanatiwarin-5159s-projects.vercel.app",
-];
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  }),
-);
+/* ✅ VERY IMPORTANT */
+app.use(cors());
 
 app.use(express.json());
 
-/* Routes */
 app.get("/", (req, res) => {
   res.send("ThinkSpend API running 🚀");
 });
 
+/* TEST */
+app.get("/test", (req, res) => {
+  res.json({ msg: "CORS Working ✅" });
+});
+
+/* ROUTES */
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/users", userRoutes);
 
-/* MongoDB */
+/* DB */
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected ✅"))
